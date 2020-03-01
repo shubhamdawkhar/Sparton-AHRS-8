@@ -1,5 +1,5 @@
 import serial
-import datetime
+from datetime import datetime
 import time as tim
 import globalv
 import csv
@@ -145,7 +145,7 @@ def temperature():
                     flag = 1
     return temp
 with open('imulog.csv', 'w') as file:
-	fieldnames = ['ax', 'ay','az','yaw','pitch','roll', 'Gx', 'Gy', 'Gz']
+	fieldnames = ['time','ax', 'ay','az','yaw','pitch','roll', 'Gx', 'Gy', 'Gz']
 	writer = csv.DictWriter(file, fieldnames=fieldnames)
 	writer.writeheader()
 	while(1):
@@ -155,4 +155,4 @@ with open('imulog.csv', 'w') as file:
 		g = gyro()
 		print g
 		a= accelerometer()
-		writer.writerow({'ax':a[0], 'ay':a[1], 'az':a[2], 'yaw': y, 'pitch': p, 'roll': r,'Gx': g[0], 'Gy': g[1], 'Gz': g[2]})
+		writer.writerow({'time':datetime.now(tz=None), 'ax':a[0], 'ay':a[1], 'az':a[2], 'yaw': y, 'pitch': p, 'roll': r,'Gx': g[0], 'Gy': g[1], 'Gz': g[2]})
